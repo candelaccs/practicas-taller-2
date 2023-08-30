@@ -1,0 +1,121 @@
+program ejercicio1;
+const
+ dimF = 10
+type
+ 
+ vchar = array [1..dimF] of char; 
+ 
+ lista = ^nodo;
+ nodo = record
+  dato: char;
+  sig: lista;
+ end;
+ 
+procedure cargarVectorRecursivo (var v: vchar; var dimL: integer);
+var
+ caracter: char;
+begin
+ 
+ writeln ('ingrese un caracter');
+ readln (caracter);
+  if (caracter <> '.') and (dimL < dimF) then begin
+   dimL:= dimL+1;
+   v[dimL]:= caracter;
+   cargarVectorRecursivo (v, dimL);
+  end;
+end;
+
+procedure cargarVector (var v:vchar; var dimL: integer); // hace falta que sea otro proceso ?? //
+begin
+ dimL:= 0
+ cargarVectorRecursivo (v, dimL);
+end;
+
+procedure imprimirVector (v: vchar; dimL: integer);
+var
+ i:integer;
+begin
+ writeln ('se muestran los caracteres: ');
+ for i:= 1 to dimL do 
+  writeln (v[i], ' | ');
+end;
+
+procedure imprimirVectorRecursivo (v, diml);
+var 
+ i: integer;
+begin
+ writeln ('se muestran los caracteres');
+  for i:= 1 to dimL do begin
+   writeln (v[i], ' | ');
+   imprimirVectorRecursivo (v, dimL);
+  end;
+end;
+
+function contar (): integer;
+var
+ caracter: char
+begin
+ 
+ writeln ('ingrese un caracter');
+ readln (caracter);
+ if (caracter <> '.') then
+  contar:= contar ()+1
+ else
+  contar:= contar:= 0;
+end;
+
+procedure cargarLista (var l:lista);
+var
+ caracter: char;
+ nuevo:lista;
+begin
+ 
+ writeln ('íngrese un caracter'):
+ readln (caracter);
+ 
+ if (caracter <> '.') then begin
+  cargarLista (l);
+  new (nuevo);
+  nuevo^.dato:= caracter;
+  nuevo^.sig:= l;
+  l:= nuevo;
+ end
+ else 
+  l:= nil;
+end;
+
+procedure imprimirMismoOrden (l: lista);
+begin
+ if (l <> nil) then begin  // es un if en lugar de un while porque se esta llamando recursivamente? //
+ writeln (' ', l^.dato, ' ');
+ imprimirMismoOrden (l^.sig);
+ end;
+end;
+  
+procedure imprimirOrdenInverso (l:lista);
+
+var
+ v: vchar;
+ l: lista;
+ cantidad, dimL: integer;
+ 
+ 
+begin
+ 
+ cargarVector (v, dimL);
+ imprimirVector (v, dimL);
+ imprimirVectorRecursivo (v, dimL);
+ l: lista;
+ 
+ cantidad:= contar ();
+ writeln ('se ingresaron', cantidad, 'caracteres'); // no se estaria haciendo una sola vez? //
+ 
+ l:= nil;
+ cargarLista (l);
+ imprimirMismoOrden (l);
+ imprimirOrdenInverso (l);
+ 
+end.
+ 
+
+ 
