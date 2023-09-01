@@ -41,7 +41,7 @@ begin
  end;
 end;
 
-procedure imprimirVectorRecursivo (v: vchar; dimL:integer); // anda, no se si esta bien // ACTUALIZACION creo que si esta bien //
+procedure imprimirVectorRecursivo (v: vchar; dimL:integer); // anda, no se si esta bien //
 begin
    if ((dimL > 0) and (dimL <=dimF)) then begin
      imprimirVectorRecursivo (v, dimL-1);
@@ -68,7 +68,7 @@ var
  nuevo:lista;
 begin
  
- writeln ('íngrese un caracter para la lista');
+ writeln ('ingrese un caracter para la lista');
  readln (caracter);
  
  if (caracter <> '.') then begin
@@ -93,9 +93,8 @@ end;
 procedure imprimirOrdenInverso (l:lista);
 begin
  if (l <> nil) then begin
-  imprimirOrdenInverso (l);
+  imprimirOrdenInverso (l^.sig);
   writeln (' ', l^.dato, ' ');
-  l:= l^.sig;
  end;
 end; 
 
@@ -114,13 +113,16 @@ begin
  imprimirVectorRecursivo (v, dimL);
 
  cantidad:= contar ();
- writeln ('se ingresaron', cantidad, 'caracteres'); // no se estaria haciendo una sola vez? //
+ writeln ('se ingresaron ', cantidad, ' caracteres'); // no se estaria haciendo una sola vez? //
  
  l:= nil;
  cargarLista (l);
+ writeln ('se imprime en el orden que se cargaron: ');
  imprimirMismoOrden (l);
+ writeln ('se imprime en orden inverso: ' );
  imprimirOrdenInverso (l);
  
 end.
+ 
 
  
