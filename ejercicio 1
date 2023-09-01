@@ -1,6 +1,4 @@
-
-
- program ejercicio1;
+program ejercicio1;
 const
  dimF = 5;
 type
@@ -43,15 +41,12 @@ begin
  end;
 end;
 
-procedure imprimirVectorRecursivo (v: vchar; dimL:integer); // anda, no se si esta bien //
+procedure imprimirVectorRecursivo (v: vchar; dimL:integer); // anda, no se si esta bien // ACTUALIZACION creo que si esta bien //
 begin
    if ((dimL > 0) and (dimL <=dimF)) then begin
+     imprimirVectorRecursivo (v, dimL-1);
      writeln ('|', v[dimL], '|');
-     imprimirVectorRecursivo (v, dimL -1);
    end
-   else begin
-     dimL:= 0;
-   end;
 end;
 
 function contar (): integer;
@@ -127,6 +122,5 @@ begin
  imprimirOrdenInverso (l);
  
 end.
- 
 
  
