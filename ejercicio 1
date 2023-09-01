@@ -1,6 +1,8 @@
-program ejercicio1;
+
+
+ program ejercicio1;
 const
- dimF = 10
+ dimF = 5;
 type
  
  vchar = array [1..dimF] of char; 
@@ -25,9 +27,9 @@ begin
   end;
 end;
 
-procedure cargarVector (var v:vchar; var dimL: integer); // hace falta que sea otro proceso ?? //
+procedure cargarVector (var v:vchar; var dimL: integer); // hace falta que sea otro proceso ?? // actualizacion SI HACE FALTA (modulos encapsulados) //
 begin
- dimL:= 0
+ dimL:= 0;
  cargarVectorRecursivo (v, dimL);
 end;
 
@@ -36,32 +38,33 @@ var
  i:integer;
 begin
  writeln ('se muestran los caracteres: ');
- for i:= 1 to dimL do 
-  writeln (v[i], ' | ');
+ for i:= 1 to dimL do begin
+  writeln ('|', v[i], '|');
+ end;
 end;
 
-procedure imprimirVectorRecursivo (v, diml);
-var 
- i: integer;
+procedure imprimirVectorRecursivo (v: vchar; dimL:integer); // anda, no se si esta bien //
 begin
- writeln ('se muestran los caracteres');
-  for i:= 1 to dimL do begin
-   writeln (v[i], ' | ');
-   imprimirVectorRecursivo (v, dimL);
-  end;
+   if ((dimL > 0) and (dimL <=dimF)) then begin
+     writeln ('|', v[dimL], '|');
+     imprimirVectorRecursivo (v, dimL -1);
+   end
+   else begin
+     dimL:= 0;
+   end;
 end;
 
 function contar (): integer;
 var
- caracter: char
+ caracter: char;
 begin
  
- writeln ('ingrese un caracter');
+ writeln ('ingrese un caracter a contar');
  readln (caracter);
  if (caracter <> '.') then
   contar:= contar ()+1
  else
-  contar:= contar:= 0;
+  contar:= 0;
 end;
 
 procedure cargarLista (var l:lista);
@@ -70,7 +73,7 @@ var
  nuevo:lista;
 begin
  
- writeln ('íngrese un caracter'):
+ writeln ('íngrese un caracter para la lista');
  readln (caracter);
  
  if (caracter <> '.') then begin
@@ -86,15 +89,23 @@ end;
 
 procedure imprimirMismoOrden (l: lista);
 begin
- if (l <> nil) then begin  // es un if en lugar de un while porque se esta llamando recursivamente? //
- writeln (' ', l^.dato, ' ');
- imprimirMismoOrden (l^.sig);
+ if (l <> nil) then begin  // es un if en lugar de un while porque se esta llamando recursivamente? // ACTUALIZACION si //
+  writeln (' ', l^.dato, ' ');
+  imprimirMismoOrden (l^.sig);
  end;
 end;
   
 procedure imprimirOrdenInverso (l:lista);
+begin
+ if (l <> nil) then begin
+  imprimirOrdenInverso (l);
+  writeln (' ', l^.dato, ' ');
+  l:= l^.sig;
+ end;
+end; 
 
 var
+
  v: vchar;
  l: lista;
  cantidad, dimL: integer;
@@ -104,9 +115,9 @@ begin
  
  cargarVector (v, dimL);
  imprimirVector (v, dimL);
+ writeln ('se muestran los caracteres de manera recursiva');
  imprimirVectorRecursivo (v, dimL);
- l: lista;
- 
+
  cantidad:= contar ();
  writeln ('se ingresaron', cantidad, 'caracteres'); // no se estaria haciendo una sola vez? //
  
