@@ -1,0 +1,36 @@
+2.- Realizar un programa que lea números hasta leer el valor 0 e imprima, para cada número
+leído, sus dígitos en el orden en que aparecen en el número. Debe implementarse un módulo
+recursivo que reciba el número e imprima lo pedido. Ejemplo si se lee el valor 256, se debe
+imprimir 2 5 6
+
+program ejercicio2;
+
+procedure leerNums ();
+
+ procedure imprimirDigitos (num: integer);
+ var
+  aux: integer;
+ begin
+   if (num <> 0 ) then begin
+     aux:= num mod 10;
+     imprimirDigitos (num div 10);
+     write (' ', aux, ' ');
+   end;
+ end;
+ 
+var
+ num: integer;
+begin
+  writeln ('ingresar un numero');
+  readln (num);
+  while (num <> 0) do begin
+    writeln ('se muestran los digitos de este numero');
+    imprimirDigitos (num);
+     writeln (' ');
+    writeln ('ingresar un numero');
+    readln (num);
+  end;
+end;
+begin
+  leerNums ();
+end.
