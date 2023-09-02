@@ -1,0 +1,90 @@
+3.- Escribir un programa que:
+a. Implemente un módulo recursivo que genere una lista de números enteros “random”
+mayores a 0 y menores a 100. Finalizar con el número 0.
+b. Implemente un módulo recursivo que devuelva el mínimo valor de la lista.
+c. Implemente un módulo recursivo que devuelva el máximo valor de la lista.
+d. Implemente un módulo recursivo que devuelva verdadero si un valor determinado se
+encuentra en la lista o falso en caso contrario.
+
+program ejercicio3;
+
+type
+ 
+ lista = ^nodo;
+ nodo = record
+  dato: integer;
+  sig: lista;
+ end;
+ 
+
+procedure generarLista (var l: lista);
+
+ procedure nodoNuevo (var l: lista; num: integer);
+ var
+  nue: lista;
+ begin
+  new (nue);
+  nue^.dato:= num;
+  nue^.sig:= l;
+  l:= nue;
+ end;
+ 
+var
+ num: integer;
+begin
+  
+ writeln ('ingrese un caracter');
+ readln (num);
+ if (num <> 0) then begin
+  generarLista (l);
+  nodoNuevo (l, num);
+ end
+ else
+  l:= nil;
+end;
+
+procedure min (l: lista; var minimo: integer);
+begin
+ if (l <> nil) then begin
+  min (l^.sig, minimo);
+  if (l^.dato < minimo) then begin
+   minimo:= l^.dato;
+  end;
+ end;
+end;
+ 
+
+procedure max (l: lista; var maximo: integer);
+begin
+ if (l <> nil) then begin
+  min (l^.sig, maximo);
+  if (l^.dato > maximo) then begin
+   maximo:= l^.dato;
+  end;
+ end;
+end;
+
+
+procedure imprimirLista (l: lista);
+begin
+ if (l <> nil ) then begin
+  writeln ('numero: ');
+  writeln (l^.dato);
+  imprimirLista (l^.sig);
+ end;
+end;
+
+var
+ l:lista;
+ minimo, maximo: integer;
+begin
+ 
+ generarLista (l);
+ minimo:= 99;
+ min (l, minimo);
+ writeln ('el numero minimo es ', minimo);
+ maximo:= -1;
+ max (l, maximo);
+ writeln ('el numero maximo es ', maximo);
+
+end.
