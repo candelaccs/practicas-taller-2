@@ -6,7 +6,7 @@ c. Implemente un módulo recursivo que devuelva el máximo valor de la lista.
 d. Implemente un módulo recursivo que devuelva verdadero si un valor determinado se
 encuentra en la lista o falso en caso contrario.
 
-program ejercicio3;
+program ejercicio3; // funciona perfecto //
 
 type
  
@@ -57,13 +57,24 @@ end;
 procedure max (l: lista; var maximo: integer);
 begin
  if (l <> nil) then begin
-  min (l^.sig, maximo);
+  max (l^.sig, maximo);
   if (l^.dato > maximo) then begin
    maximo:= l^.dato;
   end;
  end;
 end;
 
+function busqueda (l: lista; buscar: integer): boolean;
+begin
+ 
+ if (l <> nil ) and (l^.dato <> buscar ) then 
+   busqueda (l^.sig, buscar);
+ if (l <> nil) then
+  busqueda:= true
+ else 
+  busqueda:= false;
+  
+end;
 
 procedure imprimirLista (l: lista);
 begin
@@ -76,7 +87,7 @@ end;
 
 var
  l:lista;
- minimo, maximo: integer;
+ minimo, maximo, buscar: integer;
 begin
  
  generarLista (l);
@@ -87,4 +98,13 @@ begin
  max (l, maximo);
  writeln ('el numero maximo es ', maximo);
 
+ writeln ('ingrese un valor a buscar');
+ readln (buscar);
+ if (busqueda (l, buscar))then
+  writeln ('se encontro el elemento')
+ else
+  writeln ('no se encontro el elemento');
+ 
+ 
 end.
+ 
