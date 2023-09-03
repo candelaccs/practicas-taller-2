@@ -1,0 +1,59 @@
+4.- Escribir un programa con:
+a. Un módulo recursivo que retorne un vector de 20 números enteros “random” mayores a 0 y
+menores a 100.
+b. Un módulo recursivo que devuelva el máximo valor del vector.
+c. Un módulo recursivo que devuelva la suma de los valores contenidos en el vector.
+
+program ejercicio4;
+const
+ dimF = 8;
+type
+ 
+ 
+  vector = array [1..dimF] of integer;
+  
+procedure cargarVector (var v: vector; var dimL:integer);
+begin
+ 
+ if ( diml < dimF) then begin
+  dimL:= dimL+1;
+  writeln ('ngresar un numero ');
+  readln ( v[dimL]);
+  cargarVector (v, dimL);
+ end;
+end;
+
+procedure maximo (v: vector; dimL: integer; var max:integer);
+begin
+ 
+ if ( dimL > 0) then begin
+  maximo (v, dimL-1,max);
+  if (v[dimL] > max) then
+   max:= v[dimL];
+ end;
+end;
+
+procedure sumarNumeros (v: vector; dimL: integer; var suma: integer);
+begin
+ 
+ if (dimL > 0) then begin
+  sumarNumeros (v, dimL-1, suma);
+  suma:= suma+ v[dimL];
+ end;
+end;
+
+var
+ v: vector;
+ dimL, max, suma: integer;
+
+begin
+
+ cargarVector (v, dimL);
+ max:= -1;
+ maximo (v, dimL, max);
+ writeln ('el maximo es ', max);
+ suma:= 0;
+ sumarNumeros (v, dimL, suma);
+ writeln ('la suma de todos los numeros del vector es: ', suma);
+ 
+end.
